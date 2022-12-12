@@ -13,7 +13,7 @@ namespace Spline3LibTest
         public void CalculateTest()
         {
             // Creating spline
-            Spline s = new Spline(4, 3, 2, 1, 9);
+            Spline s = new Spline(9, 4, 3, 2, 1);
 
             // Calculating
             double result = s.F(10);
