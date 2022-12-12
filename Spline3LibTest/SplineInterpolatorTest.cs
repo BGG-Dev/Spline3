@@ -21,7 +21,7 @@ namespace Spline3LibTest
             nodes[2] = new Tuple<double, double>(-0.5, 0.7);
             nodes[3] = new Tuple<double, double>(0.0, 1.0);
             nodes[4] = new Tuple<double, double>(0.5, 0.7);
-            nodes[5] = new Tuple<double, double>(1, 0.0);
+            nodes[5] = new Tuple<double, double>(1.0, 0.0);
             nodes[6] = new Tuple<double, double>(1.5, -0.7);
         }
 
@@ -53,16 +53,20 @@ namespace Spline3LibTest
             Spline[] result = interpolator.Interpolate();
 
             // Asserting
+            double[] xl = new double[] { -1.5, -1.0, -0.5, 0.0, 0.5, 1.0 };
             double[] a = new double[] { -0.7, 0.0, 0.7, 1.0, 0.7, 0.0};
             double[] b = new double[] { 1.36, 1.48, 1.13, -0.007, -1.11, -1.4 };
             double[] c = new double[] { 0, 0.22, -0.92, -1.35, -0.86, 0 };
             double[] d = new double[] { 0.15, -0.76, -0.29, 0.33, 0.57, 0};
+            PrivateObject obj;
             for (int i = 0; i < 6; i++)
             {
-                Assert.AreEqual(a[i], result[i].A);
-                Assert.IsTrue(Math.Pow(b[i] - result[i].B, 2) < 0.001);
-                Assert.IsTrue(Math.Pow(c[i] - result[i].C, 2) < 0.001);
-                Assert.IsTrue(Math.Pow(d[i] - result[i].D, 2) < 0.001);
+                obj = new PrivateObject(result[i]);
+                Assert.AreEqual(xl[i], (double)obj.GetField("xl"));
+                Assert.AreEqual(a[i], (double)obj.GetField("a"));
+                Assert.IsTrue(Math.Pow(b[i] - (double)obj.GetField("b"), 2) < 0.001);
+                Assert.IsTrue(Math.Pow(c[i] - (double)obj.GetField("c"), 2) < 0.001);
+                Assert.IsTrue(Math.Pow(d[i] - (double)obj.GetField("d"), 2) < 0.001);
             }
         }
     }

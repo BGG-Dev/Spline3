@@ -7,20 +7,15 @@ namespace Spline3Lib
      */ 
     public class Spline
     {
-        public double XL { get; set; }
+        private double xl;
 
-        public double A { get; set; }
+        private double a;
 
-        public double B { get; set; }
+        private double b;
 
-        public double C { get; set; }
+        private double c;
 
-        public double D { get; set; }
-
-        /*
-         * No args constructor
-         */
-        public Spline() { }
+        private double d;
 
         /*
          * All args constructor
@@ -30,13 +25,13 @@ namespace Spline3Lib
          * d - 3 coef
          * xl - x of left segment point
          */ 
-        public Spline(double a, double b, double c, double d, double xl)
+        public Spline(double xl, double a, double b, double c, double d)
         {
-            XL = xl;
-            A = a;
-            B = b;
-            C = c;
-            D = d;
+            this.xl = xl;
+            this.a = a;
+            this.b = b;
+            this.c = c;
+            this.d = d;
         }
 
         /*
@@ -44,7 +39,7 @@ namespace Spline3Lib
          */
         public double F(double x)
         {
-            return A + B * (x - XL) + C * Math.Pow(x - XL, 2) + D * Math.Pow(x - XL, 3);
+            return a + b * (x - xl) + c * Math.Pow(x - xl, 2) + d * Math.Pow(x - xl, 3);
         }
     }
 }
